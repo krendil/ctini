@@ -12,7 +12,7 @@ void main()
         writeln("Regenerating grammar");
         asModule("ctini.inigrammar", "source/ctini/inigrammar", import("INI.peg"));
     } else {
-        writeln("Not regenereating grammar");
+        writeln("Not regenerating grammar");
     }
 
 }

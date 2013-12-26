@@ -47,11 +47,12 @@ D file:
 
  - The final object is a `std.typecons.Tuple`, and can be used accordingly.
 
- - Running app.d with dub will allow you to regenerate the INI grammar, but this should only be 
+ - Running `dub --config=regen` will allow you to regenerate the INI grammar, but this should only be 
    necessary if you decide to edit `include/INI.peg`.
 
 ## TODO
 
  - Settings without sections
+ - Validating against user-defined types (with default values)
  - Single quote strings
  - Nicer errors

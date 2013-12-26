@@ -1,12 +1,25 @@
 {
-	"name": "ctini",
-	"description": "A compile-time INI parser.",
-	"copyright": "Copyright © 2013, David Osborne",
-	"authors": ["David Osborne"],
-	"dependencies": {
+    "name": "ctini",
+    "description": "A compile-time INI parser.",
+    "copyright": "Copyright © 2013, David Osborne",
+    "license": "MIT",
+    "authors": ["David Osborne"],
+    "dependencies": {
         "pegged" : "~master"
-	},
-    "stringImportPaths" : [
-        "include/"
+    },
+    "targetType" : "sourceLibrary",
+    "configurations" : [
+        {
+            "name" : "default",
+            "targetType" : "sourceLibrary"
+        },
+        {
+            "name" : "regen",
+            "targetType" : "executable",
+            "stringImportPaths" : [
+                "include/"
+            ]
+        }
     ]
+
 }
