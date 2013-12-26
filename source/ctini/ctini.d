@@ -16,7 +16,7 @@ debug import std.stdio;
 public import std.typecons : Tuple;
 
 public template IniConfig(string iniFile) {
-    auto IniConfig = mixin(IniConfigImpl(import(iniFile)));
+    enum IniConfig = mixin(IniConfigImpl(import(iniFile)));
 }
 
 private:

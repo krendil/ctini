@@ -4,7 +4,6 @@ import ctini.ctini;
 import pegged.grammar;
 
 
-
 void main()
 {
     writeln("Regenerate grammar module? (y/n)");
@@ -20,16 +19,18 @@ void main()
 unittest {
     import std.string;
 
-    auto config = IniConfig!"test/testconfig.ini";
+    enum config = IniConfig!"test/testconfig.ini";
 
-    with(config.Section1) {
+    enum s = config.Section.stringValue;
+
+    with(config.Section) {
         assert(stringValue == "string",
                 "Expected stringValue = \"string\", got \"%s\"".format(stringValue));
         assert(intValue == 3,
                 "Expected intValue = 3, got %s".format(intValue));
         assert(floatValue == 123.45f,
                 "Expected floatValue = 123.45, got %s".format(floatValue));
-        with(bools) {
+        with(Subsection) {
             assert(boolValue == false,
                 "Expected boolValue = false, got %s".format(boolValue));
             assert(boolValue2 == true,
