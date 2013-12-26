@@ -1,0 +1,12 @@
+{
+	"name": "ctini",
+	"description": "A compile-time INI parser.",
+	"copyright": "Copyright © 2013, David Osborne",
+	"authors": ["David Osborne"],
+	"dependencies": {
+        "pegged" : "~master"
+	},
+    "stringImportPaths" : [
+        "include/"
+    ]
+}
