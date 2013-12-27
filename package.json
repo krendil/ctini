@@ -11,11 +11,12 @@
     "configurations" : [
         {
             "name" : "default",
-            "targetType" : "sourceLibrary"
+            "targetType" : "sourceLibrary",
         },
         {
             "name" : "regen",
             "targetType" : "executable",
+            "sourceFiles" : ["regen.d"],
             "stringImportPaths" : [
                 "include/"
             ]
