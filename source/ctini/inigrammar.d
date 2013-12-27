@@ -2,7 +2,7 @@
 This module was automatically generated from the following grammar:
 
 IniGrammar:
-    Config      <-  (Section)+ !.
+    Config      <-  (Section / EOL)* !.
 
     Section     <-  SectionHead (Setting / :EmptyLine)+
         SectionHead <-  :'[' Identifier ( :'.' Identifier )* :']' EOL
@@ -119,7 +119,7 @@ struct GenericIniGrammar(TParseTree)
     {
         if(__ctfe)
         {
-            return         pegged.peg.named!(pegged.peg.and!(pegged.peg.oneOrMore!(Section), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config")(p);
+            return         pegged.peg.named!(pegged.peg.and!(pegged.peg.zeroOrMore!(pegged.peg.or!(Section, EOL)), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config")(p);
         }
         else
         {
@@ -127,7 +127,7 @@ struct GenericIniGrammar(TParseTree)
                 return *m;
             else
             {
-                TParseTree result = hooked!(pegged.peg.named!(pegged.peg.and!(pegged.peg.oneOrMore!(Section), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config"), "Config")(p);
+                TParseTree result = hooked!(pegged.peg.named!(pegged.peg.and!(pegged.peg.zeroOrMore!(pegged.peg.or!(Section, EOL)), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config"), "Config")(p);
                 memo[tuple(`Config`,p.end)] = result;
                 return result;
             }
@@ -138,12 +138,12 @@ struct GenericIniGrammar(TParseTree)
     {
         if(__ctfe)
         {
-            return         pegged.peg.named!(pegged.peg.and!(pegged.peg.oneOrMore!(Section), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config")(TParseTree("", false,[], s));
+            return         pegged.peg.named!(pegged.peg.and!(pegged.peg.zeroOrMore!(pegged.peg.or!(Section, EOL)), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config")(TParseTree("", false,[], s));
         }
         else
         {
             memo = null;
-            return hooked!(pegged.peg.named!(pegged.peg.and!(pegged.peg.oneOrMore!(Section), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config"), "Config")(TParseTree("", false,[], s));
+            return hooked!(pegged.peg.named!(pegged.peg.and!(pegged.peg.zeroOrMore!(pegged.peg.or!(Section, EOL)), pegged.peg.negLookahead!(pegged.peg.any)), "IniGrammar.Config"), "Config")(TParseTree("", false,[], s));
         }
     }
     static string Config(GetName g)

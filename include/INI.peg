@@ -1,9 +1,8 @@
 IniGrammar:
-    Config      <-  (Section)+ !.
+    Config      <-  (Section / EOL)* !.
 
-    Section     <-  SectionHead (Setting / :EmptyLine)+
+    Section     <-  SectionHead (Setting / EOL)+
         SectionHead <-  :'[' Identifier ( :'.' Identifier )* :']' EOL
-        EmptyLine   <   EOL
 
     Setting     <   Identifier Spacing :'=' Spacing Value EOL
 
