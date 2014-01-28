@@ -1,5 +1,5 @@
 IniGrammar:
-    Config      <-  (Section / EOL)* !.
+    Config      <-  (Section / EOL)*
 
     Section     <-  SectionHead (Setting / EOL)+
         SectionHead <-  :'[' Identifier ( :'.' Identifier )* :']' EOL
@@ -16,6 +16,7 @@ IniGrammar:
         Bool        <-  ;"true" / ;"false"
 
     Spacing     <: [ \t]*
-    EOL         <: Spacing* (Comment / Newline)
+    EOL         <: Spacing* (Comment / Newline / EOF)
         Newline     <: '\r'? '\n'
         Comment     <~ [;#] (!Newline .)* Newline
+        EOF         <: !.

@@ -38,6 +38,6 @@ unittest {
         }
     }
 
-    enum config2 = IniConfig!"test/blog.ini";
+    auto config2 = IniConfig!"test/blog.ini";
 
 }
