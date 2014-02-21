@@ -12,6 +12,9 @@ import std.typetuple;
 
 import ctini.inigrammar;
 
+/**
+ * Represents a section that can contain settings and other sections
+ */
 struct Section {
     string name;
     string id;
@@ -92,6 +95,8 @@ Section[string] parseSections(string iniText) {
 
     return sections;
 }
+
+private:
 
 /**
   * Returns the section's parent section, creating it if necessary,
@@ -188,7 +193,7 @@ string getSettingType(PT)(PT pt) {
 /**
  * Eagerly calls the given function for every element of the range
  */
-auto apply(alias fun, R)(R range)
+public auto apply(alias fun, R)(R range)
     if(isInputRange!R)
 {
     foreach( e; range ) {

@@ -1,7 +1,7 @@
 {
     "name": "ctini",
-    "description": "A compile-time INI parser.",
-    "copyright": "Copyright © 2013, David Osborne",
+    "description": "A compile-time and run-time INI parser.",
+    "copyright": "Copyright © 2014, David Osborne",
     "license": "MIT",
     "authors": ["David Osborne"],
     "dependencies": {
