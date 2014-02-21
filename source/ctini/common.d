@@ -4,6 +4,7 @@ import std.algorithm;
 import std.array;
 import std.conv;
 import std.format;
+import std.functional;
 import std.range;
 import std.string;
 import std.traits;
@@ -74,7 +75,7 @@ Section[string] parseSections(string iniText) {
                     getSettings(pt)
                 )
              )
-        .apply( (Section sec) {
+        .apply!( (Section sec) {
                 auto placeholder = sec.id in sections;
                 if(placeholder !is null) {
                     //The only field we need to copy is subsections,
@@ -187,11 +188,10 @@ string getSettingType(PT)(PT pt) {
 /**
  * Eagerly calls the given function for every element of the range
  */
-auto apply(R, F)(R range, F fun)
-    if(isIterable!R && isCallable!(F) && is(TypeTuple!(ForeachType!R) : ParameterTypeTuple!F) )
+auto apply(alias fun, R)(R range)
+    if(isInputRange!R)
 {
     foreach( e; range ) {
-        fun(e);
+        unaryFun!fun(e);
     }
 }
-
