@@ -52,10 +52,10 @@ D file (run-time):
     void main() {
         auto config = iniConfig("config.ini");
 
-        static assert(config.Section.get!int("intValue") == 3);
-        static assert(config.Section.get!string("stringValue") == "string");
-        static assert(config.Section.get!float("floatValue") == 123.45f);
-        static assert(config.Section.Subsection.get!bool("boolValue") == false);
+        static assert(config.Section.intValue!int == 3);
+        static assert(config.Section.stringValue!string == "string");
+        static assert(config.Section.floatValue!float == 123.45f);
+        static assert(config.Section.Subsection.boolValue!bool == false);
     }
         
 ## Advanced
