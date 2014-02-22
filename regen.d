@@ -65,4 +65,22 @@ unittest {
         }
     }
 
+    //Magic syntax
+    auto stringValue = config3.Section.stringValue!string;
+    assert(stringValue == "string",
+            "Expected stringValue = \"string\", got \"%s\"".format(stringValue));
+    auto intValue = config3.Section.intValue!int;
+    assert(intValue == 3,
+            "Expected intValue = 3, got %s".format(intValue));
+    auto floatValue = config3.Section.floatValue!float;
+    assert(floatValue == 123.45f,
+            "Expected floatValue = 123.45, got %s".format(floatValue));
+    with(config3.Section.Subsection) {
+        auto boolValue = config3.Section.Subsection.boolValue!bool;
+        assert(boolValue == false,
+                "Expected boolValue = false, got %s".format(boolValue));
+        auto boolValue2 = config3.Section.Subsection.boolValue2!bool;
+        assert(boolValue2 == true,
+                "Expected boolValue2 = true, got %s".format(boolValue2));
+    }
 }

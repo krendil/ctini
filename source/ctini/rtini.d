@@ -22,24 +22,36 @@ IniSection iniConfigFromString(string iniText) {
 struct IniSection {
     IniSetting[string] children;
 
-    @property
-    public IniSection opDispatch(string name)()
-    {
-        auto subsec = name in children;
-        enforce( subsec !is null, "This section has no subsection called "~name);
-        enforce( subsec.currentType == IniSetting.SettingType.section, name~" is not a subsection");
-        
-        return subsec.get!IniSection();
+    public template opDispatch(string name) {
+
+        @property
+        public IniSection opDispatch()
+        {
+            auto subsec = name in children;
+            enforce( subsec !is null, "This section has no subsection called "~name);
+            enforce( subsec.currentType == IniSetting.SettingType.section, name~" is not a subsection");
+
+            return subsec.get!IniSection();
+        }
+
+        @property
+        public T opDispatch(T)() {
+            auto subsec = name in children;
+            enforce( subsec !is null, "This section has no property called "~name);
+            //enforce( subsec.currentType == IniSetting.SettingType.section, name~" is not a subsection");
+
+            return subsec.get!T();
+        }
     }
 
     public T get(T)(string name) 
         if( IniSetting.allowed!T )
-    {
-        auto set = name in children;
-        enforce( set !is null, "This section has no setting called "~name);
+        {
+            auto set = name in children;
+            enforce( set !is null, "This section has no setting called "~name);
 
-        return set.get!T();   
-    }
+            return set.get!T();   
+        }
 }
 
 /**
@@ -68,7 +80,7 @@ struct IniSetting {
     }
 
     this(string type, string value) {
-        
+
         switch(type) {
             case "string":
                 values.string_ = value[1..$-1]; //Strip off the quote marks
@@ -103,44 +115,44 @@ struct IniSetting {
     }
 
     T get(T : string)()
-    in {
-        assert(currentType == SettingType.string_,
-                "Attempted to access a string, when really there was a "~currentType.to!string);
-    } body {
-        return values.string_;
-    }
+        in {
+            assert(currentType == SettingType.string_,
+                    "Attempted to access a string, when really there was a "~currentType.to!string);
+        } body {
+            return values.string_;
+        }
 
     T get(T : int)()
-    in {
-        assert(currentType == SettingType.int_,
-                "Attempted to access an int, when really there was a "~currentType.to!string);
-    } body {
-        return values.int_;
-    }
+        in {
+            assert(currentType == SettingType.int_,
+                    "Attempted to access an int, when really there was a "~currentType.to!string);
+        } body {
+            return values.int_;
+        }
 
     T get(T : float)()
-    in {
-        assert(currentType == SettingType.float_,
-                "Attempted to access a float, when really there was a "~currentType.to!string);
-    } body {
-        return values.float_;
-    }
+        in {
+            assert(currentType == SettingType.float_,
+                    "Attempted to access a float, when really there was a "~currentType.to!string);
+        } body {
+            return values.float_;
+        }
 
     T get(T : bool)()
-    in {
-        assert(currentType == SettingType.bool_,
-                "Attempted to access a bool, when really there was a "~currentType.to!string);
-    } body {
-        return values.bool_;
-    }
+        in {
+            assert(currentType == SettingType.bool_,
+                    "Attempted to access a bool, when really there was a "~currentType.to!string);
+        } body {
+            return values.bool_;
+        }
 
     T get(T : IniSection)()
-    in {
-        assert(currentType == SettingType.section,
-                "Attempted to access an IniSection, when really there was a "~currentType.to!string);
-    } body {
-        return values.section;
-    }
+        in {
+            assert(currentType == SettingType.section,
+                    "Attempted to access an IniSection, when really there was a "~currentType.to!string);
+        } body {
+            return values.section;
+        }
 
 }
 
@@ -154,15 +166,15 @@ IniSection makeVariants(Section[string] sections) {
     sections.values
         .filter!( sec => sec.parent is null )
         .apply!( (sec) => (
-                root.children[sec.name] = IniSetting(makeIniSection(sec))
-                ));
+                    root.children[sec.name] = IniSetting(makeIniSection(sec))
+                    ));
 
     return root;
 }
 
 IniSection makeIniSection(Section section) {
     IniSection isec;
-    
+
     //Convert and add all the settings into the hashmap
     foreach( set; section.settings ) {
 
