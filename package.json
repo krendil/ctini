@@ -5,7 +5,7 @@
     "license": "MIT",
     "authors": ["David Osborne"],
     "dependencies": {
-        "pegged" : "~master"
+        "pegged" : "~>0.4.4"
     },
     "targetType" : "sourceLibrary",
     "configurations" : [
